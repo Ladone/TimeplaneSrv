@@ -1,0 +1,36 @@
+version: '2.2'
+
+volumes:
+  mysql_data:
+
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - '9000:9000'
+    volumes:
+      - '../app/Timeplane:/var/www/html'
+
+  web:
+    image: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - './configs/nginx.conf:/etc/nginx/conf.d/default.conf'
+      - '../app/Timeplane:/var/www/html'
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=timeplane
+      - MYSQL_USER=timeplane
+      - MYSQL_PASSWORD=timeplanesql
+      - MYSQL_ROOT_PASSWORD=timepanesql
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
