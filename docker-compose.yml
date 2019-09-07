@@ -23,7 +23,7 @@ services:
       - '../app/Timeplane:/var/www/html'
 
   db:
-    image: mysql
+    image: mysql:5.7
     restart: always
     environment:
       - MYSQL_DATABASE=timeplane
