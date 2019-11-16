@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+docker-compose exec -u www-data app bin/console $@
